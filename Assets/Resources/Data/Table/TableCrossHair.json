@@ -1,0 +1,22 @@
+[
+    {
+        "index": 0,
+        "id": "CrossHair_Hexa_0",
+        "crossHairSprite_id": "CrossHair_Hexa",
+        "crossHairSize": 55,
+        "Color_R": 0.0,
+        "Color_G": 0.0,
+        "Color_B": 0.0,
+        "Color_A": 100.0
+    },
+    {
+        "index": 1,
+        "id": "CrossHair_Hexa_1",
+        "crossHairSprite_id": "CrossHair_Hexa",
+        "crossHairSize": 40,
+        "Color_R": 255.0,
+        "Color_G": 0.0,
+        "Color_B": 0.0,
+        "Color_A": 255.0
+    }
+]

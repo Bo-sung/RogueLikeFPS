@@ -17,7 +17,7 @@ namespace Unity.FPS.Gameplay
         }
 
         [Tooltip("List of weapon the player will start with")]
-        public List<WeaponController> StartingWeapons = new List<WeaponController>();
+        public List<int> StartingWeapons = new List<int>();
 
         [Header("References")] [Tooltip("Secondary camera used to avoid seeing weapon go throw geometries")]
         public Camera WeaponCamera;
@@ -113,7 +113,7 @@ namespace Unity.FPS.Gameplay
             // Add starting weapons
             foreach (var weapon in StartingWeapons)
             {
-                AddWeapon(weapon);
+                AddWeapon(GetWeaponController(weapon));
             }
 
             SwitchWeapon(true);
@@ -129,7 +129,7 @@ namespace Unity.FPS.Gameplay
 
             if (activeWeapon != null && m_WeaponSwitchState == WeaponSwitchState.Up)
             {
-                if (!activeWeapon.AutomaticReload && m_InputHandler.GetReloadButtonDown() && activeWeapon.CurrentAmmoRatio < 1.0f)
+                if (!activeWeapon.data.ammoParameters.AutomaticReload && m_InputHandler.GetReloadButtonDown() && activeWeapon.CurrentAmmoRatio < 1.0f)
                 {
                     IsAiming = false;
                     activeWeapon.StartReloadAnimation();
@@ -147,7 +147,7 @@ namespace Unity.FPS.Gameplay
                 // Handle accumulating recoil
                 if (hasFired)
                 {
-                    m_AccumulatedRecoil += Vector3.back * activeWeapon.RecoilForce;
+                    m_AccumulatedRecoil += Vector3.back * activeWeapon.data.shootParameters.RecoilForce;
                     m_AccumulatedRecoil = Vector3.ClampMagnitude(m_AccumulatedRecoil, MaxRecoilDistance);
                 }
             }
@@ -289,10 +289,10 @@ namespace Unity.FPS.Gameplay
                 if (IsAiming && activeWeapon)
                 {
                     m_WeaponMainLocalPosition = Vector3.Lerp(m_WeaponMainLocalPosition,
-                        AimingWeaponPosition.localPosition + activeWeapon.AimOffset,
+                        AimingWeaponPosition.localPosition + activeWeapon.data.shootParameters.AimOffset,
                         AimingAnimationSpeed * Time.deltaTime);
                     SetFov(Mathf.Lerp(m_PlayerCharacterController.PlayerCamera.fieldOfView,
-                        activeWeapon.AimZoomRatio * DefaultFov, AimingAnimationSpeed * Time.deltaTime));
+                        activeWeapon.data.shootParameters.AimZoomRatio * DefaultFov, AimingAnimationSpeed * Time.deltaTime));
                 }
                 else
                 {
@@ -555,6 +555,16 @@ namespace Unity.FPS.Gameplay
             {
                 newWeapon.ShowWeapon(true);
             }
+        }
+
+        public GameObject GetWeaponPrefab(int id)
+        {
+            return Resources.Load<GameObject>(string.Format("Prefabs/Weapons/{0}",id));
+        }
+
+        public WeaponController GetWeaponController(int id)
+        {
+            return Resources.Load<WeaponController>(string.Format("Prefabs/Weapons/{0}", id));
         }
     }
 }

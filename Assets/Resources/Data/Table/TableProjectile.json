@@ -1,0 +1,54 @@
+[
+    {
+        "index": 0,
+        "id": "Projectile_Blaster_0",
+        "prefab_id": "Projectile_Blaster",
+        "general": {
+            "radius": 0.01,
+            "maxLifeTime": 5.0,
+            "impacktVFX_id": "VFX_LazerSparksGreen",
+            "impactVFXLifetime": 5.0,
+            "impactVFXSpawnOffset": 0.1,
+            "impacktSFXClip_id": "None",
+            "hittableLayers": {
+                "value": 2147483647
+            }
+        },
+        "movement": {
+            "speed": 300.0,
+            "gravityDownAcceleration": 0.0,
+            "trajectoryCorrectionDistance": 5.0,
+            "inheritWeaponVelocity": false
+        },
+        "damage": {
+            "value": 15.0,
+            "areaOfDamage_id": "None"
+        }
+    },
+    {
+        "index": 0,
+        "id": "",
+        "prefab_id": "",
+        "general": {
+            "radius": 0.0,
+            "maxLifeTime": 0.0,
+            "impacktVFX_id": "",
+            "impactVFXLifetime": 0.0,
+            "impactVFXSpawnOffset": 0.0,
+            "impacktSFXClip_id": "",
+            "hittableLayers": {
+                "value": 0
+            }
+        },
+        "movement": {
+            "speed": 0.0,
+            "gravityDownAcceleration": 0.0,
+            "trajectoryCorrectionDistance": 0.0,
+            "inheritWeaponVelocity": false
+        },
+        "damage": {
+            "value": 0.0,
+            "areaOfDamage_id": ""
+        }
+    }
+]

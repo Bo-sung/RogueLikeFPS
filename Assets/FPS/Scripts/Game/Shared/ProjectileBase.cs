@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Unity.FPS.Gameplay;
 
 namespace Unity.FPS.Game
 {
@@ -22,6 +23,16 @@ namespace Unity.FPS.Game
             InitialCharge = controller.CurrentCharge;
 
             OnShoot?.Invoke();
+        }
+
+        public virtual void SetData(ProjectileData _data)
+        {
+
+        }
+
+        public static ProjectileBase GetPrefab(string _id)
+        {
+            return Resources.Load<ProjectileBase>(string.Format("Prefabs/Projectiles/{0}",_id));
         }
     }
 }

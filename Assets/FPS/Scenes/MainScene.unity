@@ -536,7 +536,7 @@ PrefabInstance:
     - target: {fileID: 2015434656898269656, guid: 25a1b0efadb966e44889fce712c8ff8d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2015434656898269656, guid: 25a1b0efadb966e44889fce712c8ff8d,
         type: 3}
@@ -1155,6 +1155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1603278496}
+  - component: {fileID: 1603278497}
   m_Layer: 0
   m_Name: ===== GENERAL =====
   m_TagString: Untagged
@@ -1177,6 +1178,122 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1603278497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603278495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b30b96f1b37ce347a04614d00580123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TableWeapon:
+  - index: 0
+    id: 0
+    info:
+      name: Blaster
+      icon_id: HUD_Weapon03
+      crosshairDefault_Data_id: CrossHair_Hexa_0
+      crosshairTargetInSight_Data_id: CrossHair_Hexa_1
+    shootParam:
+      weaponShootType: 1
+      projectile_id: Projectile_Blaster_0
+      delayBetweenShots: 0.1
+      bulletSpreadAngle: 0
+      bulletPerShot: 1
+      recoilForce: 1
+      aimZoomRatio: 0.5
+      AimOffset: {x: 0, y: 0.075, z: 0}
+    ammoParam:
+      automaticReload: 1
+      hasPysicalBullets: 0
+      clipSize: 30
+      shellCasing_id: None
+      shellCasingEjectionForce: 2
+      shellPoolSize: 1
+      ammoReloadRate: 16
+      ammoReloadDelay: 1
+      maxAmmo: 16
+    chargingParam:
+      automaticReleaseOnCharged: 0
+      maxChargeDuration: 2
+      ammoUsedOnStartCharge: 1
+      ammoUsageRateWhileCharging: 2
+    audioVisualData:
+      muzzleFlashPrefab_id: VFX_MuzzleFlashGreen
+      unParrentMuzzleFlash: 0
+      shootSFX_id: Blaster_Shot
+      changeWeaponSFX_id: Pickup_Weapon_Small
+      useContinuiusShootSound: 0
+      continuousShootStartSFX_id: None
+      continuousShootLoopSFX_id: None
+      continuousShootEndSFX_id: None
+  m_TableCrosshair:
+  - index: 0
+    id: CrossHair_Hexa_0
+    crossHairSprite_id: CrossHair_Hexa
+    crossHairSize: 55
+    Color_R: 0
+    Color_G: 0
+    Color_B: 0
+    Color_A: 100
+  - index: 1
+    id: CrossHair_Hexa_1
+    crossHairSprite_id: CrossHair_Hexa
+    crossHairSize: 40
+    Color_R: 255
+    Color_G: 0
+    Color_B: 0
+    Color_A: 255
+  m_TableProjectile:
+  - index: 0
+    id: Projectile_Blaster_0
+    prefab_id: Projectile_Blaster
+    general:
+      radius: 0.01
+      maxLifeTime: 5
+      impacktVFX_id: VFX_LazerSparksGreen
+      impactVFXLifetime: 5
+      impactVFXSpawnOffset: 0.1
+      impacktSFXClip_id: None
+      hittableLayers:
+        serializedVersion: 2
+        m_Bits: 2147483647
+    movement:
+      speed: 300
+      gravityDownAcceleration: 0
+      trajectoryCorrectionDistance: 5
+      inheritWeaponVelocity: 0
+    damage:
+      value: 15
+      areaOfDamage_id: None
+  - index: 0
+    id: 
+    prefab_id: 
+    general:
+      radius: 0
+      maxLifeTime: 0
+      impacktVFX_id: 
+      impactVFXLifetime: 0
+      impactVFXSpawnOffset: 0
+      impacktSFXClip_id: 
+      hittableLayers:
+        serializedVersion: 2
+        m_Bits: 0
+    movement:
+      speed: 0
+      gravityDownAcceleration: 0
+      trajectoryCorrectionDistance: 0
+      inheritWeaponVelocity: 0
+    damage:
+      value: 0
+      areaOfDamage_id: 
+  Table: 1
+  CrossHair: 1
+  Projectile: 1
 --- !u!1 &1612760412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4778346531047654936, guid: c1f95b2a073069e4091731002c38a3df,
@@ -1512,7 +1629,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2729281212889745562
 GameObject:
@@ -1961,7 +2078,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2729281213186270809
 PrefabInstance:
@@ -2272,7 +2389,7 @@ PrefabInstance:
     - target: {fileID: 4413103428092379576, guid: e3a6816b03ceb084b837f8669a888407,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4413103428092379576, guid: e3a6816b03ceb084b837f8669a888407,
         type: 3}
@@ -2411,7 +2528,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2729281213735534850
 GameObject:
@@ -2442,7 +2559,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2729281213748808806
 PrefabInstance:
@@ -3486,7 +3603,7 @@ PrefabInstance:
     - target: {fileID: 28905003217567913, guid: ecdbb7f81f59b934cb72306019ee7a41,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 28905003217567913, guid: ecdbb7f81f59b934cb72306019ee7a41,
         type: 3}
@@ -3792,7 +3909,7 @@ PrefabInstance:
     - target: {fileID: 2015434656898269656, guid: 25a1b0efadb966e44889fce712c8ff8d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2015434656898269656, guid: 25a1b0efadb966e44889fce712c8ff8d,
         type: 3}
@@ -4681,7 +4798,7 @@ PrefabInstance:
     - target: {fileID: 2620131183356007199, guid: d40ae884302b6684a8b3b6f3d55a71ba,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2620131183356007199, guid: d40ae884302b6684a8b3b6f3d55a71ba,
         type: 3}
@@ -4888,7 +5005,7 @@ PrefabInstance:
     - target: {fileID: 598277302063295029, guid: 012d63212fd1fe646b661cb8446c7bd4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 598277302063295029, guid: 012d63212fd1fe646b661cb8446c7bd4,
         type: 3}
@@ -5151,7 +5268,7 @@ PrefabInstance:
     - target: {fileID: 6488011246168764991, guid: bf40d5ff22aca9d428655f63d45754f5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6488011246168764991, guid: bf40d5ff22aca9d428655f63d45754f5,
         type: 3}
