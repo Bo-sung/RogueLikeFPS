@@ -363,6 +363,7 @@ namespace Unity.FPS.Game
                 Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
                 ProjectileBase newProjectile = Instantiate(data.shootParameters.ProjectilePrefab, WeaponMuzzle.position,
                     Quaternion.LookRotation(shotDirection));
+                newProjectile.SetData(data.shootParameters.ProjectileData);
                 newProjectile.Shoot(this);
             }
 

@@ -43,6 +43,18 @@ namespace Unity.FPS.Data
     public struct Parameter_Damage
     {
         public float value;
-        public string areaOfDamage_id;
+        public Parameter_DamageArea damageArea;
     }
+
+    [System.Serializable]
+    public struct Parameter_DamageArea
+    {
+        public float areaOfEffectDistance;
+        public string damageRatioOverDistance_AnimCurve;
+        public float Debug_AreaOfEffectColor_R;
+        public float Debug_AreaOfEffectColor_G;
+        public float Debug_AreaOfEffectColor_B;
+        public float Debug_AreaOfEffectColor_A;
+    }
+
 }

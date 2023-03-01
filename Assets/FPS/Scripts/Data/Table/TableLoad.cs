@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
 namespace Unity.FPS.Data
 {
     public class TableLoad : Attribute
@@ -18,8 +19,17 @@ namespace Unity.FPS.Data
 
         public virtual object GetValue()
         {
-            string strJson = Resources.Load<TextAsset>(string.Format("Data/Table/{0}", path)).text;
-            return Utility.JsonNewtonsoft.DeserializeObject(strJson, type);
+            StreamReader sr;
+            sr = new StreamReader(string.Format("Assets/Resources/Data/Table/{0}", path));
+            return Utility.JsonNewtonsoft.DeserializeObject(sr.ReadToEnd(),type);
+        }
+
+        public virtual void SetValue(object obj)
+        {
+            StreamWriter sw;
+            sw = new StreamWriter(string.Format("Assets/Resources/Data/Table/{0}", path));
+            sw.WriteLine(Utility.JsonNewtonsoft.SerializeObject(obj));
+            sw.Close();
         }
     }
 }

@@ -73,14 +73,20 @@ namespace Unity.FPS.Gameplay
         {
             [Tooltip("Damage of the projectile")]
             public float Value = 40f;
+            [Tooltip("Area of damage when the projectile hits something")]
+            public float AreaOfEffectDistance = 5f;
 
-            [Tooltip("Area of damage. Keep empty if you don<t want area damage")]
-            public DamageArea AreaOfDamage;
+            [Tooltip("Damage multiplier over distance for area of effect")]
+            public Keyframe[] DamageRatioOverDistance;
+
+            [Header("Debug")]
+            [Tooltip("Color of the area of effect radius")]
+            public Color AreaOfEffectColor = Color.red * 0.5f;
 
             public _Damage(Data.Parameter_Damage _param)
             {
                 this.Value = _param.value;
-                this.AreaOfDamage = Resources.Load<DamageArea>(string.Format("Data/DamageArea/{0}", _param.areaOfDamage_id));
+                DamageRatioOverDistance = Data.Table.Curve.GetKeyframes(_param.damageArea.damageRatioOverDistance_AnimCurve);
             }
         }
 

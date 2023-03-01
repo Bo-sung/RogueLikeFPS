@@ -51,10 +51,10 @@
     },
     {
         "index": 1,
-        "id": "Weapon_Launcher_0",
-        "prefab_id": "Weapon_Launcher",
+        "id": "Disc Launcher_0",
+        "prefab_id": "Disc Launcher",
         "info": {
-            "name": "Weapon_Launcher",
+            "name": "Disc Launcher",
             "icon_id": "HUD_Weapon01",
             "crosshairDefault_Data_id": "CrossHair_Drop_0",
             "crosshairTargetInSight_Data_id": "CrossHair_Drop_1"
@@ -101,8 +101,8 @@
     },
     {
         "index": 2,
-        "id": "Weapon_Shotgun_0",
-        "prefab_id": "Weapon_Shotgun",
+        "id": "Shotgun_1",
+        "prefab_id": "Shotgun",
         "info": {
             "name": "Shotgun",
             "icon_id": "HUD_Weapon02",

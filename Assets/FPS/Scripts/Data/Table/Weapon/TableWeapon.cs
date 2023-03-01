@@ -11,7 +11,8 @@ namespace Unity.FPS.Data
     public class TableWeapon
     {
         public int index;
-        public int id;
+        public string id;
+        public string prefab_id;
         public Weapon_Info info;
         public Parameter_Shoot shootParam;
         public Parameter_Ammo ammoParam;

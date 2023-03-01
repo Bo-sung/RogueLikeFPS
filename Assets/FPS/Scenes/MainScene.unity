@@ -1190,110 +1190,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b30b96f1b37ce347a04614d00580123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TableWeapon:
+  Curves:
   - index: 0
-    id: 0
-    info:
-      name: Blaster
-      icon_id: HUD_Weapon03
-      crosshairDefault_Data_id: CrossHair_Hexa_0
-      crosshairTargetInSight_Data_id: CrossHair_Hexa_1
-    shootParam:
-      weaponShootType: 1
-      projectile_id: Projectile_Blaster_0
-      delayBetweenShots: 0.1
-      bulletSpreadAngle: 0
-      bulletPerShot: 1
-      recoilForce: 1
-      aimZoomRatio: 0.5
-      AimOffset: {x: 0, y: 0.075, z: 0}
-    ammoParam:
-      automaticReload: 1
-      hasPysicalBullets: 0
-      clipSize: 30
-      shellCasing_id: None
-      shellCasingEjectionForce: 2
-      shellPoolSize: 1
-      ammoReloadRate: 16
-      ammoReloadDelay: 1
-      maxAmmo: 16
-    chargingParam:
-      automaticReleaseOnCharged: 0
-      maxChargeDuration: 2
-      ammoUsedOnStartCharge: 1
-      ammoUsageRateWhileCharging: 2
-    audioVisualData:
-      muzzleFlashPrefab_id: VFX_MuzzleFlashGreen
-      unParrentMuzzleFlash: 0
-      shootSFX_id: Blaster_Shot
-      changeWeaponSFX_id: Pickup_Weapon_Small
-      useContinuiusShootSound: 0
-      continuousShootStartSFX_id: None
-      continuousShootLoopSFX_id: None
-      continuousShootEndSFX_id: None
-  m_TableCrosshair:
-  - index: 0
-    id: CrossHair_Hexa_0
-    crossHairSprite_id: CrossHair_Hexa
-    crossHairSize: 55
-    Color_R: 0
-    Color_G: 0
-    Color_B: 0
-    Color_A: 100
-  - index: 1
-    id: CrossHair_Hexa_1
-    crossHairSprite_id: CrossHair_Hexa
-    crossHairSize: 40
-    Color_R: 255
-    Color_G: 0
-    Color_B: 0
-    Color_A: 255
-  m_TableProjectile:
-  - index: 0
-    id: Projectile_Blaster_0
-    prefab_id: Projectile_Blaster
-    general:
-      radius: 0.01
-      maxLifeTime: 5
-      impacktVFX_id: VFX_LazerSparksGreen
-      impactVFXLifetime: 5
-      impactVFXSpawnOffset: 0.1
-      impacktSFXClip_id: None
-      hittableLayers:
-        serializedVersion: 2
-        m_Bits: 2147483647
-    movement:
-      speed: 300
-      gravityDownAcceleration: 0
-      trajectoryCorrectionDistance: 5
-      inheritWeaponVelocity: 0
-    damage:
-      value: 15
-      areaOfDamage_id: None
-  - index: 0
-    id: 
-    prefab_id: 
-    general:
-      radius: 0
-      maxLifeTime: 0
-      impacktVFX_id: 
-      impactVFXLifetime: 0
-      impactVFXSpawnOffset: 0
-      impacktSFXClip_id: 
-      hittableLayers:
-        serializedVersion: 2
-        m_Bits: 0
-    movement:
-      speed: 0
-      gravityDownAcceleration: 0
-      trajectoryCorrectionDistance: 0
-      inheritWeaponVelocity: 0
-    damage:
-      value: 0
-      areaOfDamage_id: 
+    id: Projectile_Disc
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -0.004528313
+        outSlope: -0.004528313
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.5208333
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.8867912
+        outSlope: -2.8867912
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.041666687
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   Table: 1
   CrossHair: 1
   Projectile: 1
+  Curve: 1
 --- !u!1 &1612760412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4778346531047654936, guid: c1f95b2a073069e4091731002c38a3df,
@@ -3298,6 +3225,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 298744117520805562, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: StartingWeapons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 298744117520805562, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: StartingWeapons.Array.data[0]
+      value: Weapon_Blaster_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 298744117520805562, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: StartingWeapons.Array.data[1]
+      value: Weapon_Launcher_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 298744117520805562, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: StartingWeapons.Array.data[2]
+      value: Weapon_Shotgun_0
+      objectReference: {fileID: 0}
     - target: {fileID: 814417836257332542, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: GravityDownForce
@@ -3599,6 +3546,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_Dust
+      objectReference: {fileID: 0}
+    - target: {fileID: 28905003217567911, guid: ecdbb7f81f59b934cb72306019ee7a41,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 28905003217567913, guid: ecdbb7f81f59b934cb72306019ee7a41,
         type: 3}
@@ -5264,6 +5216,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_Lava
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488011246168764977, guid: bf40d5ff22aca9d428655f63d45754f5,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6488011246168764991, guid: bf40d5ff22aca9d428655f63d45754f5,
         type: 3}

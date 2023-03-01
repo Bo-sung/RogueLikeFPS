@@ -14,6 +14,9 @@ namespace Unity.FPS.Gameplay
         [Tooltip("Transform representing the tip of the projectile (used for accurate collision detection)")]
         public Transform Tip;
 
+        [Tooltip("Area of damage. Keep empty if you don<t want area damage")]
+        public DamageArea AreaOfDamage;
+
         [Header("Debug")]
         [Tooltip("Color of the projectile radius debug view")]
         public Color RadiusColor = Color.cyan * 0.2f;
@@ -38,7 +41,8 @@ namespace Unity.FPS.Gameplay
                 gameObject);
 
             m_ProjectileBase.OnShoot += OnShoot;
-
+            if(AreaOfDamage != null)
+                AreaOfDamage.SetData(_data.Damage.AreaOfEffectDistance, _data.Damage.DamageRatioOverDistance, _data.Damage.AreaOfEffectColor);
             Destroy(gameObject, projectileData.General.MaxLifeTime);
         }
 
@@ -192,10 +196,10 @@ namespace Unity.FPS.Gameplay
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
             // damage
-            if (projectileData.Damage.AreaOfDamage)
+            if (AreaOfDamage != null)
             {
                 // area damage
-                projectileData.Damage.AreaOfDamage.InflictDamageInArea(projectileData.Damage.Value, point, projectileData.General.HittableLayers, k_TriggerInteraction,
+                AreaOfDamage.InflictDamageInArea(projectileData.Damage.Value, point, projectileData.General.HittableLayers, k_TriggerInteraction,
                     m_ProjectileBase.Owner);
             }
             else

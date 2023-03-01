@@ -1,4 +1,5 @@
-﻿
+﻿using UnityEngine;
+
 namespace Unity.FPS.Data
 {
     [System.Serializable]

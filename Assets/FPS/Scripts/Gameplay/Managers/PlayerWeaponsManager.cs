@@ -17,7 +17,7 @@ namespace Unity.FPS.Gameplay
         }
 
         [Tooltip("List of weapon the player will start with")]
-        public List<int> StartingWeapons = new List<int>();
+        public List<string> StartingWeapons = new List<string>();
 
         [Header("References")] [Tooltip("Secondary camera used to avoid seeing weapon go throw geometries")]
         public Camera WeaponCamera;
@@ -562,9 +562,22 @@ namespace Unity.FPS.Gameplay
             return Resources.Load<GameObject>(string.Format("Prefabs/Weapons/{0}",id));
         }
 
-        public WeaponController GetWeaponController(int id)
+        /// <summary>
+        /// ID에 해당하는 무기 찾아서 추가
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public WeaponController GetWeaponController(string id)
         {
-            return Resources.Load<WeaponController>(string.Format("Prefabs/Weapons/{0}", id));
+            //테이블에서 무기 검색
+            var wpData = Data.Table.Weapon.GetData(id);
+            if(wpData == null)
+            {
+                Debug.LogError("무기 없음. id 확인");
+            }
+            var temp = Resources.Load<WeaponController>(string.Format("Prefabs/Weapons/{0}", wpData.prefab_id));
+            temp.InjectData(new WeaponData(wpData));
+            return temp;
         }
     }
 }

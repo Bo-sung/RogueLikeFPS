@@ -6,9 +6,9 @@ namespace Unity.FPS.Data
 {
     public partial class Table
     {
-        public class Projectile
+        public static class Projectile
         {
-            [TableLoad(typeof(TableProjectile[]), "Projectile")]
+            [TableLoad(typeof(TableProjectile[]), "Projectile.json")]
             public static TableProjectile[] tableProjectile;
 
             private static Dictionary<string, TableProjectile> m_dic_TableProjectile;

@@ -27,11 +27,15 @@ namespace Unity.FPS.Game
         public WeaponData(TableWeapon _tableData )
         {
             this.Info = new WeaponInfo(_tableData.info);
+            this.shootParameters = new ShootParameter(_tableData.shootParam);
+            this.ammoParameters = new AmmoParameter(_tableData.ammoParam);
+            this.chargingParameters = new ChargingParameter(_tableData.chargingParam);
+            this.audioVisualData = new AudioVisualData(_tableData.audioVisualData);
         }
     }
 
     [System.Serializable]
-    public class CrosshairData : ScriptableObject
+    public class CrosshairData
     {
         [Tooltip("The image that will be used for this weapon's crosshair")]
         public Sprite CrosshairSprite;
@@ -84,6 +88,9 @@ namespace Unity.FPS.Game
         [Tooltip("The projectile prefab")]
         public ProjectileBase ProjectilePrefab;
 
+        [Tooltip("The projectile prefab")]
+        public Gameplay.ProjectileData ProjectileData;
+
         [Tooltip("Minimum duration between two shots")]
         public float DelayBetweenShots;
 
@@ -109,7 +116,7 @@ namespace Unity.FPS.Game
             var projectileData = Table.Projectile.GetData(_param.projectile_id);
             this.ShootType = _param.weaponShootType;
             this.ProjectilePrefab = ProjectileBase.GetPrefab(projectileData.prefab_id);
-            this.ProjectilePrefab.SetData(new Gameplay.ProjectileData(projectileData)); 
+            this.ProjectileData = new Gameplay.ProjectileData(projectileData); 
             this.DelayBetweenShots = _param.delayBetweenShots;
             this.BulletSpreadAngle = _param.bulletSpreadAngle;
             this.BulletsPerShot = _param.bulletPerShot;
@@ -211,7 +218,7 @@ namespace Unity.FPS.Game
         {
             this.MuzzleFlashPrefab = Resources.Load<GameObject>(string.Format("Prefab/VFX/MuzzleFlash/{0}", _param.muzzleFlashPrefab_id));
             this.UnparentMuzzleFlash = _param.unParrentMuzzleFlash;
-            this.ShootSfx = Resources.Load<AudioClip>(string.Format("Audio/SFX/{0}"));
+            this.ShootSfx = Resources.Load<AudioClip>(string.Format("Audio/SFX/Weapon/{0}",_param.shootSFX_id));
         }
 
     }

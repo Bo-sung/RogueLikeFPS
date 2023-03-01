@@ -8,10 +8,10 @@ namespace Unity.FPS.Data
 {
     public partial class Table
     {
-        public class CrossHair
+        public static class CrossHair
         {
-            [TableLoad(typeof(TableCrossHair[]), "Weapon")]
-            public static TableCrossHair[] tableWeapons;
+            [TableLoad(typeof(TableCrossHair[]), "CrossHair.json")]
+            public static TableCrossHair[] tableCrossHair;
 
             private static Dictionary<string, TableCrossHair> m_dic_TableWeapons;
 
@@ -25,7 +25,7 @@ namespace Unity.FPS.Data
                 if (m_dic_TableWeapons == null)
                 {
                     m_dic_TableWeapons = new Dictionary<string, TableCrossHair>();
-                    foreach (var item in tableWeapons)
+                    foreach (var item in tableCrossHair)
                     {
                         m_dic_TableWeapons.Add(item.id, item);
                     }

@@ -15,6 +15,13 @@ namespace Unity.FPS.Game
         [Tooltip("Color of the area of effect radius")]
         public Color AreaOfEffectColor = Color.red * 0.5f;
 
+        public void SetData(float _AreaOfEffectDistance, Keyframe[] _keyFrame, Color _Debug_AreaOfEffectColor)
+        {
+            AreaOfEffectDistance = _AreaOfEffectDistance;
+            DamageRatioOverDistance = new AnimationCurve(_keyFrame);
+            AreaOfEffectColor = _Debug_AreaOfEffectColor;
+        }
+
         public void InflictDamageInArea(float damage, Vector3 center, LayerMask layers,
             QueryTriggerInteraction interaction, GameObject owner)
         {

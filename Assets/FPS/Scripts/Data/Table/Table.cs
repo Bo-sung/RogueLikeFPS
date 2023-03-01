@@ -33,5 +33,29 @@ namespace Unity.FPS.Data
                 }
             }
         }
+
+        public static void SaveData()
+        {
+            var fieldInfos = typeof(Table).GetNestedTypes();
+            for (int i = 0, count = fieldInfos.Length; i < count; i++)
+            {
+                Debug.Log("Save Table." + fieldInfos[i].Name);
+                SaveData(fieldInfos[i]);
+                Debug.Log("Table." + fieldInfos[i].Name + " Save Complete");
+            }
+        }
+
+        private static void SaveData(Type type)
+        {
+            FieldInfo[] fieldInfos = type.GetFields();
+            for (int i = 0, count = fieldInfos.Length; i < count; i++)
+            {
+                TableLoad tableLoad = fieldInfos[i].GetCustomAttribute<TableLoad>();
+                if (tableLoad != null)
+                {
+                    tableLoad.SetValue(fieldInfos[i].GetValue(null));
+                }
+            }
+        }
     }
 }
