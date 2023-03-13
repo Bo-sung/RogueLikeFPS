@@ -36,6 +36,9 @@ namespace Unity.FPS.UI
 
         void UpdateCrosshairPointingAtEnemy(bool force)
         {
+            if (m_CrosshairDataDefault == null)
+                return;
+
             if (m_CrosshairDataDefault.CrosshairSprite == null)
                 return;
 

@@ -148,5 +148,105 @@
             "continuousShootLoopSFX_id": "None",
             "continuousShootEndSFX_id": "None"
         }
+    },
+    {
+        "index": 3,
+        "id": "Weapon_EyeLazers_0",
+        "prefab_id": "None",
+        "info": {
+            "name": "",
+            "icon_id": "None",
+            "crosshairDefault_Data_id": "None",
+            "crosshairTargetInSight_Data_id": "None"
+        },
+        "shootParam": {
+            "weaponShootType": 1,
+            "projectile_id": "Projectile_Hoverbot_0",
+            "delayBetweenShots": 0.8,
+            "bulletSpreadAngle": 0,
+            "bulletPerShot": 1,
+            "recoilForce": 1.0,
+            "aimZoomRatio": 1.0,
+            "AimOffset_x": 0.0,
+            "AimOffset_y": 0.13,
+            "AimOffset_z": 0.0
+        },
+        "ammoParam": {
+            "automaticReload": true,
+            "hasPysicalBullets": false,
+            "clipSize": 30,
+            "shellCasing_id": "None",
+            "shellCasingEjectionForce": 2.0,
+            "shellPoolSize": 1,
+            "ammoReloadRate": 0.5,
+            "ammoReloadDelay": 0.5,
+            "maxAmmo": 100
+        },
+        "chargingParam": {
+            "automaticReleaseOnCharged": false,
+            "maxChargeDuration": 2.0,
+            "ammoUsedOnStartCharge": 1.0,
+            "ammoUsageRateWhileCharging": 2.0
+        },
+        "audioVisualData": {
+            "muzzleFlashPrefab_id": "None",
+            "unParrentMuzzleFlash": false,
+            "shootSFX_id": "Hoverbot_Attack",
+            "changeWeaponSFX_id": "None",
+            "useContinuiusShootSound": false,
+            "continuousShootStartSFX_id": "None",
+            "continuousShootLoopSFX_id": "None",
+            "continuousShootEndSFX_id": "None"
+        }
+    },
+    {
+        "index": 4,
+        "id": "Weapon_MachineGun_0",
+        "prefab_id": "None",
+        "info": {
+            "name": "mg",
+            "icon_id": "None",
+            "crosshairDefault_Data_id": "None",
+            "crosshairTargetInSight_Data_id": "None"
+        },
+        "shootParam": {
+            "weaponShootType": 1,
+            "projectile_id": "Projectile_Turret_0",
+            "delayBetweenShots": 0.06,
+            "bulletSpreadAngle": 0,
+            "bulletPerShot": 1,
+            "recoilForce": 1.0,
+            "aimZoomRatio": 1.0,
+            "AimOffset_x": 0.0,
+            "AimOffset_y": 0.0,
+            "AimOffset_z": 0.0
+        },
+        "ammoParam": {
+            "automaticReload": true,
+            "hasPysicalBullets": false,
+            "clipSize": 30,
+            "shellCasing_id": "None",
+            "shellCasingEjectionForce": 2.0,
+            "shellPoolSize": 1,
+            "ammoReloadRate": -1.0,
+            "ammoReloadDelay": 0.5,
+            "maxAmmo": 100
+        },
+        "chargingParam": {
+            "automaticReleaseOnCharged": false,
+            "maxChargeDuration": 2.0,
+            "ammoUsedOnStartCharge": 1.0,
+            "ammoUsageRateWhileCharging": 2.0
+        },
+        "audioVisualData": {
+            "muzzleFlashPrefab_id": "None",
+            "unParrentMuzzleFlash": false,
+            "shootSFX_id": "Hoverbot_Attack",
+            "changeWeaponSFX_id": "None",
+            "useContinuiusShootSound": false,
+            "continuousShootStartSFX_id": "None",
+            "continuousShootLoopSFX_id": "None",
+            "continuousShootEndSFX_id": "None"
+        }
     }
 ]

@@ -318,8 +318,8 @@ namespace Unity.FPS.Gameplay
                 {
                     characterMovementFactor =
                         Mathf.Clamp01(playerCharacterVelocity.magnitude /
-                                      (m_PlayerCharacterController.MaxSpeedOnGround *
-                                       m_PlayerCharacterController.SprintSpeedModifier));
+                                      (m_PlayerCharacterController.data.movement.MaxSpeedOnGround *
+                                       m_PlayerCharacterController.data.movement.SprintSpeedModifier));
                 }
 
                 m_WeaponBobFactor =

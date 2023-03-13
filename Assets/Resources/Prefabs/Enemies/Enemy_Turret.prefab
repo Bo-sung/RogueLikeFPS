@@ -225,6 +225,8 @@ MonoBehaviour:
   DeathDuration: 0
   SwapToNextWeapon: 0
   DelayAfterWeaponSwap: 0
+  WeaponIDs:
+  - Weapon_MachineGun_0
   EyeColorMaterial: {fileID: 2100000, guid: 778fbfe9a7e4a96418b9312dbfc4d67c, type: 2}
   DefaultEyeColor: {r: 23.849056, g: 7.292185, b: 0, a: 1}
   AttackEyeColor: {r: 32, g: 1.4610044, b: 0, a: 1}
@@ -268,6 +270,7 @@ MonoBehaviour:
   PathReachingRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   AttackRangeColor: {r: 1, g: 0, b: 0, a: 1}
   DetectionRangeColor: {r: 0, g: 0, b: 1, a: 1}
+  m_Weapons: []
 --- !u!114 &6370966072896210225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,50 +685,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad90ba0b1477764da373f5ec01a8cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponName: mg
-  WeaponIcon: {fileID: 0}
-  CrosshairDataDefault:
-    CrosshairSprite: {fileID: 0}
-    CrosshairSize: 0
-    CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
-  CrosshairDataTargetInSight:
-    CrosshairSprite: {fileID: 0}
-    CrosshairSize: 0
-    CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
+  data:
+    Info:
+      WeaponName: 
+      WeaponIcon: {fileID: 0}
+      CrosshairDataDefault:
+        CrosshairSprite: {fileID: 0}
+        CrosshairSize: 0
+        CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
+      CrosshairDataTargetInSight:
+        CrosshairSprite: {fileID: 0}
+        CrosshairSize: 0
+        CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
+    shootParameters:
+      ShootType: 0
+      ProjectilePrefab: {fileID: 0}
+      ProjectileData:
+        General:
+          Radius: 0
+          MaxLifeTime: 0
+          ImpactVfx: {fileID: 0}
+          ImpactVfxLifetime: 0
+          ImpactVfxSpawnOffset: 0
+          ImpactSfxClip: {fileID: 0}
+          HittableLayers:
+            serializedVersion: 2
+            m_Bits: 0
+        Movement:
+          Speed: 0
+          GravityDownAcceleration: 0
+          TrajectoryCorrectionDistance: 0
+          InheritWeaponVelocity: 0
+        Damage:
+          Value: 0
+          AreaOfEffectDistance: 0
+          AreaOfEffectColor: {r: 0, g: 0, b: 0, a: 0}
+      DelayBetweenShots: 0
+      BulletSpreadAngle: 0
+      BulletsPerShot: 0
+      RecoilForce: 0
+      AimZoomRatio: 0
+      AimOffset: {x: 0, y: 0, z: 0}
+    ammoParameters:
+      AutomaticReload: 0
+      HasPhysicalBullets: 0
+      ClipSize: 0
+      ShellCasing: {fileID: 0}
+      ShellCasingEjectionForce: 0
+      ShellPoolSize: 0
+      AmmoReloadRate: 0
+      AmmoReloadDelay: 0
+      MaxAmmo: 0
+    chargingParameters:
+      AutomaticReleaseOnCharged: 0
+      MaxChargeDuration: 0
+      AmmoUsedOnStartCharge: 0
+      AmmoUsageRateWhileCharging: 0
+    audioVisualData:
+      MuzzleFlashPrefab: {fileID: 0}
+      UnparentMuzzleFlash: 0
+      ShootSfx: {fileID: 0}
+      ChangeWeaponSfx: {fileID: 0}
+      UseContinuousShootSound: 0
+      ContinuousShootStartSfx: {fileID: 0}
+      ContinuousShootLoopSfx: {fileID: 0}
+      ContinuousShootEndSfx: {fileID: 0}
   WeaponRoot: {fileID: 8815063736924141185}
   WeaponMuzzle: {fileID: 2096565386399891227}
-  ShootType: 1
-  ProjectilePrefab: {fileID: 8924682559891268397, guid: 154bfb4989fe16d439e8f3fb7c20b72b,
-    type: 3}
-  DelayBetweenShots: 0.06
-  BulletSpreadAngle: 0
-  BulletsPerShot: 1
-  RecoilForce: 1
-  AimZoomRatio: 1
-  AimOffset: {x: 0, y: 0, z: 0}
-  AutomaticReload: 1
-  HasPhysicalBullets: 0
-  ClipSize: 30
-  ShellCasing: {fileID: 0}
   EjectionPort: {fileID: 0}
-  ShellCasingEjectionForce: 2
-  ShellPoolSize: 1
-  AmmoReloadRate: Infinity
-  AmmoReloadDelay: 0.6
-  MaxAmmo: 15
-  AutomaticReleaseOnCharged: 0
-  MaxChargeDuration: 2
-  AmmoUsedOnStartCharge: 1
-  AmmoUsageRateWhileCharging: 2
   WeaponAnimator: {fileID: 0}
-  MuzzleFlashPrefab: {fileID: 638502610521960261}
-  UnparentMuzzleFlash: 0
-  ShootSfx: {fileID: 8300000, guid: 0d44f0cb2e91f5f4ca09aded9a1bd9ab, type: 3}
-  ChangeWeaponSfx: {fileID: 0}
-  UseContinuousShootSound: 0
-  ContinuousShootStartSfx: {fileID: 0}
-  ContinuousShootLoopSfx: {fileID: 0}
-  ContinuousShootEndSfx: {fileID: 0}
 --- !u!82 &2231955200838058728
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1119,12 +1147,6 @@ PrefabInstance:
 --- !u!4 &77575298412261527 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 264520514954343661, guid: 3f5b545b9a1e74c418b061bba5bb9e2c,
-    type: 3}
-  m_PrefabInstance: {fileID: 196010296121033850}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &638502610521960261 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 748781637555137343, guid: 3f5b545b9a1e74c418b061bba5bb9e2c,
     type: 3}
   m_PrefabInstance: {fileID: 196010296121033850}
   m_PrefabAsset: {fileID: 0}

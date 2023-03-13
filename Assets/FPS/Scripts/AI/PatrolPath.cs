@@ -6,7 +6,7 @@ namespace Unity.FPS.AI
     public class PatrolPath : MonoBehaviour
     {
         [Tooltip("Enemies that will be assigned to this path on Start")]
-        public List<EnemyController> EnemiesToAssign = new List<EnemyController>();
+        public List<AIController> EnemiesToAssign = new List<AIController>();
 
         [Tooltip("The Nodes making up the path")]
         public List<Transform> PathNodes = new List<Transform>();

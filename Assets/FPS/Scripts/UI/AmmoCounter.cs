@@ -83,8 +83,11 @@ namespace Unity.FPS.UI
         void Update()
         {
             float currenFillRatio = m_Weapon.CurrentAmmoRatio;
+
+            Debug.LogFormat("AmmoFillImage.fillAmount : {0} currenFillRatio : {1} AmmoFillMovementSharpness : {2}", AmmoFillImage.fillAmount, currenFillRatio, AmmoFillMovementSharpness);
             AmmoFillImage.fillAmount = Mathf.Lerp(AmmoFillImage.fillAmount, currenFillRatio,
                 Time.deltaTime * AmmoFillMovementSharpness);
+            Debug.LogFormat("AmmoFillImage.fillAmount : {0}", AmmoFillImage.fillAmount);
 
             BulletCounter.text = m_Weapon.GetCarriedPhysicalBullets().ToString();
 

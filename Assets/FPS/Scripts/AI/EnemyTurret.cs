@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Unity.FPS.AI
 {
-    [RequireComponent(typeof(EnemyController))]
-    public class EnemyTurret : MonoBehaviour
+    [RequireComponent(typeof(AIController))]
+    public class EnemyTurret : EnemyBase
     {
         public enum AIState
         {
@@ -14,22 +14,13 @@ namespace Unity.FPS.AI
 
         public Transform TurretPivot;
         public Transform TurretAimPoint;
-        public Animator Animator;
         public float AimRotationSharpness = 5f;
         public float LookAtRotationSharpness = 2.5f;
         public float DetectionFireDelay = 1f;
         public float AimingTransitionBlendTime = 1f;
 
-        [Tooltip("The random hit damage effects")]
-        public ParticleSystem[] RandomHitSparks;
-
-        public ParticleSystem[] OnDetectVfx;
-        public AudioClip OnDetectSfx;
-
         public AIState AiState { get; private set; }
 
-        EnemyController m_EnemyController;
-        Health m_Health;
         Quaternion m_RotationWeaponForwardToPivot;
         float m_TimeStartedDetection;
         float m_TimeLostDetection;
@@ -39,18 +30,9 @@ namespace Unity.FPS.AI
         const string k_AnimOnDamagedParameter = "OnDamaged";
         const string k_AnimIsActiveParameter = "IsActive";
 
-        void Start()
+        public override void Start()
         {
-            m_Health = GetComponent<Health>();
-            DebugUtility.HandleErrorIfNullGetComponent<Health, EnemyTurret>(m_Health, this, gameObject);
-            m_Health.OnDamaged += OnDamaged;
-
-            m_EnemyController = GetComponent<EnemyController>();
-            DebugUtility.HandleErrorIfNullGetComponent<EnemyController, EnemyTurret>(m_EnemyController, this,
-                gameObject);
-
-            m_EnemyController.onDetectedTarget += OnDetectedTarget;
-            m_EnemyController.onLostTarget += OnLostTarget;
+            base.Start();
 
             // Remember the rotation offset between the pivot's forward and the weapon's forward
             m_RotationWeaponForwardToPivot =
@@ -130,7 +112,7 @@ namespace Unity.FPS.AI
             Animator.SetTrigger(k_AnimOnDamagedParameter);
         }
 
-        void OnDetectedTarget()
+        protected override void OnDetectedTarget()
         {
             if (AiState == AIState.Idle)
             {
@@ -151,7 +133,7 @@ namespace Unity.FPS.AI
             m_TimeStartedDetection = Time.time;
         }
 
-        void OnLostTarget()
+        protected override void OnLostTarget()
         {
             if (AiState == AIState.Attack)
             {

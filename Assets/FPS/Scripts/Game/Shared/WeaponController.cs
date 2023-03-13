@@ -60,7 +60,10 @@ namespace Unity.FPS.Game
 
         private Queue<Rigidbody> m_PhysicalAmmoPool;
 
-        private bool isInit = false;
+        public void Awake()
+        {
+            Initiallize();
+        }
 
         public void InjectData(WeaponData _data)
         {
@@ -103,8 +106,6 @@ namespace Unity.FPS.Game
                     m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
                 }
             }
-
-            isInit = true;
         }
 
         public void AddCarriablePhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, data.ammoParameters.MaxAmmo);
@@ -147,9 +148,6 @@ namespace Unity.FPS.Game
 
         void Update()
         {
-            if (!isInit)
-                return;
-
             UpdateAmmo();
             UpdateCharge();
             UpdateContinuousShootSound();

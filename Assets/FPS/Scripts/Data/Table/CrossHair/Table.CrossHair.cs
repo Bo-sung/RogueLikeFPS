@@ -16,7 +16,7 @@ namespace Unity.FPS.Data
             private static Dictionary<string, TableCrossHair> m_dic_TableWeapons;
 
             /// <summary>
-            /// 크로스 헤어 데이터 불로오기.
+            /// 크로스 헤어 데이터 불러오기.
             /// </summary>
             /// <param name="_id"></param>
             /// <returns></returns>

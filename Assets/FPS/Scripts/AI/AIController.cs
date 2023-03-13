@@ -3,11 +3,13 @@ using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using Unity.FPS.Data;
+using Unity.FPS.Gameplay;
 
 namespace Unity.FPS.AI
 {
     [RequireComponent(typeof(Health), typeof(Actor), typeof(NavMeshAgent))]
-    public class EnemyController : MonoBehaviour
+    public class AIController : MonoBehaviour, IAIController
     {
         [System.Serializable]
         public struct RendererIndexData
@@ -36,46 +38,60 @@ namespace Unity.FPS.AI
         public float DeathDuration = 0f;
 
 
-        [Header("Weapons Parameters")] [Tooltip("Allow weapon swapping for this enemy")]
+        [Header("Weapons Parameters")]
+        [Tooltip("Allow weapon swapping for this enemy")]
         public bool SwapToNextWeapon = false;
 
         [Tooltip("Time delay between a weapon swap and the next attack")]
         public float DelayAfterWeaponSwap = 0f;
 
-        [Header("Eye color")] [Tooltip("Material for the eye color")]
+        [Tooltip("Weapon IDs for this enemy")]
+        public string[] WeaponIDs;
+
+        [Header("Eye color")]
+        [Tooltip("Material for the eye color")]
         public Material EyeColorMaterial;
 
-        [Tooltip("The default color of the bot's eye")] [ColorUsageAttribute(true, true)]
+        [Tooltip("The default color of the bot's eye")]
+        [ColorUsageAttribute(true, true)]
         public Color DefaultEyeColor;
 
-        [Tooltip("The attack color of the bot's eye")] [ColorUsageAttribute(true, true)]
+        [Tooltip("The attack color of the bot's eye")]
+        [ColorUsageAttribute(true, true)]
         public Color AttackEyeColor;
 
-        [Header("Flash on hit")] [Tooltip("The material used for the body of the hoverbot")]
+        [Header("Flash on hit")]
+        [Tooltip("The material used for the body of the hoverbot")]
         public Material BodyMaterial;
 
-        [Tooltip("The gradient representing the color of the flash on hit")] [GradientUsageAttribute(true)]
+        [Tooltip("The gradient representing the color of the flash on hit")]
+        [GradientUsageAttribute(true)]
         public Gradient OnHitBodyGradient;
 
         [Tooltip("The duration of the flash on hit")]
         public float FlashOnHitDuration = 0.5f;
 
-        [Header("Sounds")] [Tooltip("Sound played when recieving damages")]
+        [Header("Sounds")]
+        [Tooltip("Sound played when recieving damages")]
         public AudioClip DamageTick;
 
-        [Header("VFX")] [Tooltip("The VFX prefab spawned when the enemy dies")]
+        [Header("VFX")]
+        [Tooltip("The VFX prefab spawned when the enemy dies")]
         public GameObject DeathVfx;
 
         [Tooltip("The point at which the death VFX is spawned")]
         public Transform DeathVfxSpawnPoint;
 
-        [Header("Loot")] [Tooltip("The object this enemy can drop when dying")]
+        [Header("Loot")]
+        [Tooltip("The object this enemy can drop when dying")]
         public GameObject LootPrefab;
 
-        [Tooltip("The chance the object has to drop")] [Range(0, 1)]
+        [Tooltip("The chance the object has to drop")]
+        [Range(0, 1)]
         public float DropRate = 1f;
 
-        [Header("Debug Display")] [Tooltip("Color of the sphere gizmo representing the path reaching range")]
+        [Header("Debug Display")]
+        [Tooltip("Color of the sphere gizmo representing the path reaching range")]
         public Color PathReachingRangeColor = Color.yellow;
 
         [Tooltip("Color of the sphere gizmo representing the attack range")]
@@ -88,6 +104,8 @@ namespace Unity.FPS.AI
         public UnityAction onDetectedTarget;
         public UnityAction onLostTarget;
         public UnityAction onDamaged;
+        public UnityAction onDie;
+        public UnityAction<float> onHealed;
 
         List<RendererIndexData> m_BodyRenderers = new List<RendererIndexData>();
         MaterialPropertyBlock m_BodyFlashMaterialPropertyBlock;
@@ -121,28 +139,29 @@ namespace Unity.FPS.AI
         void Start()
         {
             m_EnemyManager = FindObjectOfType<EnemyManager>();
-            DebugUtility.HandleErrorIfNullFindObject<EnemyManager, EnemyController>(m_EnemyManager, this);
+            DebugUtility.HandleErrorIfNullFindObject<EnemyManager, AIController>(m_EnemyManager, this);
 
             m_ActorsManager = FindObjectOfType<ActorsManager>();
-            DebugUtility.HandleErrorIfNullFindObject<ActorsManager, EnemyController>(m_ActorsManager, this);
+            DebugUtility.HandleErrorIfNullFindObject<ActorsManager, AIController>(m_ActorsManager, this);
 
             m_EnemyManager.RegisterEnemy(this);
 
             m_Health = GetComponent<Health>();
-            DebugUtility.HandleErrorIfNullGetComponent<Health, EnemyController>(m_Health, this, gameObject);
+            DebugUtility.HandleErrorIfNullGetComponent<Health, AIController>(m_Health, this, gameObject);
 
             m_Actor = GetComponent<Actor>();
-            DebugUtility.HandleErrorIfNullGetComponent<Actor, EnemyController>(m_Actor, this, gameObject);
+            DebugUtility.HandleErrorIfNullGetComponent<Actor, AIController>(m_Actor, this, gameObject);
 
             NavMeshAgent = GetComponent<NavMeshAgent>();
             m_SelfColliders = GetComponentsInChildren<Collider>();
 
             m_GameFlowManager = FindObjectOfType<GameFlowManager>();
-            DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, EnemyController>(m_GameFlowManager, this);
+            DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, AIController>(m_GameFlowManager, this);
 
             // Subscribe to damage & death actions
             m_Health.OnDie += OnDie;
             m_Health.OnDamaged += OnDamaged;
+            m_Health.OnHealed += OnHealed;
 
             // Find and initialize all weapons
             FindAndInitializeAllWeapons();
@@ -150,9 +169,9 @@ namespace Unity.FPS.AI
             weapon.ShowWeapon(true);
 
             var detectionModules = GetComponentsInChildren<DetectionModule>();
-            DebugUtility.HandleErrorIfNoComponentFound<DetectionModule, EnemyController>(detectionModules.Length, this,
+            DebugUtility.HandleErrorIfNoComponentFound<DetectionModule, AIController>(detectionModules.Length, this,
                 gameObject);
-            DebugUtility.HandleWarningIfDuplicateObjects<DetectionModule, EnemyController>(detectionModules.Length,
+            DebugUtility.HandleWarningIfDuplicateObjects<DetectionModule, AIController>(detectionModules.Length,
                 this, gameObject);
             // Initialize detection module
             DetectionModule = detectionModules[0];
@@ -161,7 +180,7 @@ namespace Unity.FPS.AI
             onAttack += DetectionModule.OnAttack;
 
             var navigationModules = GetComponentsInChildren<NavigationModule>();
-            DebugUtility.HandleWarningIfDuplicateObjects<DetectionModule, EnemyController>(detectionModules.Length,
+            DebugUtility.HandleWarningIfDuplicateObjects<DetectionModule, AIController>(detectionModules.Length,
                 this, gameObject);
             // Override navmesh agent data
             if (navigationModules.Length > 0)
@@ -341,24 +360,25 @@ namespace Unity.FPS.AI
         void OnDamaged(float damage, GameObject damageSource)
         {
             // test if the damage source is the player
-            if (damageSource && !damageSource.GetComponent<EnemyController>())
+            if (damageSource && !damageSource.GetComponent<AIController>())
             {
                 // pursue the player
                 DetectionModule.OnDamaged(damageSource);
-                
+
                 onDamaged?.Invoke();
                 m_LastTimeDamaged = Time.time;
-            
+
                 // play the damage tick sound
                 if (DamageTick && !m_WasDamagedThisFrame)
                     AudioUtility.CreateSFX(DamageTick, transform.position, AudioUtility.AudioGroups.DamageTick, 0f);
-            
+
                 m_WasDamagedThisFrame = true;
             }
         }
 
         void OnDie()
         {
+            onDie?.Invoke();
             // spawn a particle system when dying
             var vfx = Instantiate(DeathVfx, DeathVfxSpawnPoint.position, Quaternion.identity);
             Destroy(vfx, 5f);
@@ -374,6 +394,11 @@ namespace Unity.FPS.AI
 
             // this will call the OnDestroy function
             Destroy(gameObject, DeathDuration);
+        }
+
+        void OnHealed(float _value)
+        {
+            onHealed?.Invoke(_value);
         }
 
         void OnDrawGizmosSelected()
@@ -447,12 +472,14 @@ namespace Unity.FPS.AI
             if (m_Weapons == null)
             {
                 m_Weapons = GetComponentsInChildren<WeaponController>();
-                DebugUtility.HandleErrorIfNoComponentFound<WeaponController, EnemyController>(m_Weapons.Length, this,
+                DebugUtility.HandleErrorIfNoComponentFound<WeaponController, AIController>(m_Weapons.Length, this,
                     gameObject);
 
                 for (int i = 0; i < m_Weapons.Length; i++)
                 {
                     m_Weapons[i].Owner = gameObject;
+                    if (i <= WeaponIDs.Length)
+                        m_Weapons[i].InjectData(new WeaponData(Data.Table.Weapon.GetData(WeaponIDs[i])));
                 }
             }
         }
@@ -467,7 +494,7 @@ namespace Unity.FPS.AI
                 SetCurrentWeapon(0);
             }
 
-            DebugUtility.HandleErrorIfNullGetComponent<WeaponController, EnemyController>(m_CurrentWeapon, this,
+            DebugUtility.HandleErrorIfNullGetComponent<WeaponController, AIController>(m_CurrentWeapon, this,
                 gameObject);
 
             return m_CurrentWeapon;

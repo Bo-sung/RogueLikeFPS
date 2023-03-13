@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Unity.FPS.AI
 {
-    [RequireComponent(typeof(EnemyController))]
-    public class EnemyMobile : MonoBehaviour
+    [RequireComponent(typeof(AIController))]
+    public class EnemyMobile : EnemyBase
     {
         public enum AIState
         {
@@ -13,23 +13,16 @@ namespace Unity.FPS.AI
             Attack,
         }
 
-        public Animator Animator;
 
         [Tooltip("Fraction of the enemy's attack range at which it will stop moving towards target while attacking")]
         [Range(0f, 1f)]
         public float AttackStopDistanceRatio = 0.5f;
 
-        [Tooltip("The random hit damage effects")]
-        public ParticleSystem[] RandomHitSparks;
-
-        public ParticleSystem[] OnDetectVfx;
-        public AudioClip OnDetectSfx;
 
         [Header("Sound")] public AudioClip MovementSound;
         public MinMaxFloat PitchDistortionMovementSpeed;
 
         public AIState AiState { get; private set; }
-        EnemyController m_EnemyController;
         AudioSource m_AudioSource;
 
         const string k_AnimMoveSpeedParameter = "MoveSpeed";
@@ -37,15 +30,11 @@ namespace Unity.FPS.AI
         const string k_AnimAlertedParameter = "Alerted";
         const string k_AnimOnDamagedParameter = "OnDamaged";
 
-        void Start()
+        public override void Start()
         {
-            m_EnemyController = GetComponent<EnemyController>();
-            DebugUtility.HandleErrorIfNullGetComponent<EnemyController, EnemyMobile>(m_EnemyController, this,
-                gameObject);
+            base.Start();
 
             m_EnemyController.onAttack += OnAttack;
-            m_EnemyController.onDetectedTarget += OnDetectedTarget;
-            m_EnemyController.onLostTarget += OnLostTarget;
             m_EnemyController.SetPathDestinationToClosestNode();
             m_EnemyController.onDamaged += OnDamaged;
 
@@ -131,13 +120,15 @@ namespace Unity.FPS.AI
             }
         }
 
-        void OnAttack()
+        protected override void OnAttack()
         {
+            base.OnAttack();
             Animator.SetTrigger(k_AnimAttackParameter);
         }
 
-        void OnDetectedTarget()
+        protected override void OnDetectedTarget()
         {
+            base.OnDetectedTarget();
             if (AiState == AIState.Patrol)
             {
                 AiState = AIState.Follow;
@@ -156,8 +147,9 @@ namespace Unity.FPS.AI
             Animator.SetBool(k_AnimAlertedParameter, true);
         }
 
-        void OnLostTarget()
+        protected override void OnLostTarget()
         {
+            base.OnLostTarget();
             if (AiState == AIState.Follow || AiState == AIState.Attack)
             {
                 AiState = AIState.Patrol;
@@ -171,8 +163,9 @@ namespace Unity.FPS.AI
             Animator.SetBool(k_AnimAlertedParameter, false);
         }
 
-        void OnDamaged()
+        protected override void OnDamaged()
         {
+            base.OnDamaged();
             if (RandomHitSparks.Length > 0)
             {
                 int n = Random.Range(0, RandomHitSparks.Length - 1);

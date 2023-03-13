@@ -48,7 +48,8 @@ namespace Unity.FPS.Game
 
         public CrosshairData(TableCrossHair _tableData)
         {
-            CrosshairSprite = Resources.Load<Sprite>(string.Format("ArtResources/CrossHair/{0}",_tableData.crossHairSprite_id));
+            if(_tableData.crossHairSprite_id != "None")
+                CrosshairSprite = Resources.Load<Sprite>(string.Format("Art/Textures/UI/{0}",_tableData.crossHairSprite_id));
             CrosshairSize = _tableData.crossHairSize;
             CrosshairColor = new Color(_tableData.Color_R, _tableData.Color_G, _tableData.Color_B, _tableData.Color_A);
         }
@@ -73,7 +74,7 @@ namespace Unity.FPS.Game
         public WeaponInfo(Weapon_Info _info)
         {
             this.WeaponName = _info.name;
-            this.WeaponIcon = Resources.Load<Sprite>(string.Format("ArtResources/WeaponIcon/{0}", _info.icon_id));
+            this.WeaponIcon = Resources.Load<Sprite>(string.Format("Art/Textures/UI/{0}", _info.icon_id));
             this.CrosshairDataDefault = new CrosshairData(Table.CrossHair.GetData(_info.crosshairDefault_Data_id));
             this.CrosshairDataTargetInSight = new CrosshairData(Table.CrossHair.GetData(_info.crosshairTargetInSight_Data_id));
         }
@@ -128,7 +129,7 @@ namespace Unity.FPS.Game
 
     [System.Serializable]
     public class AmmoParameter
-    {
+    {        
         [Tooltip("Should the player manually reload")]
         public bool AutomaticReload;
         [Tooltip("Has physical clip on the weapon and ammo shells are ejected when firing")]
@@ -161,6 +162,9 @@ namespace Unity.FPS.Game
             this.AmmoReloadRate = _param.ammoReloadRate;
             this.AmmoReloadDelay = _param.ammoReloadDelay;
             this.MaxAmmo = _param.maxAmmo;
+
+            if (AmmoReloadRate == -1)
+                AmmoReloadRate = float.PositiveInfinity;
         }
     }
 
